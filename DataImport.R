@@ -43,13 +43,13 @@ if (TestTLA[folder] == "Visit1") {
     
     tot <- nrow(csvDF)
     #Percentage inval data
-    InVal <- nrow(filter(csvDF, LPMMV > 0, RPMMV > 0))
+    InVal <- nrow(filter(csvDF, LPMMV < 1, RPMMV < 1 ))
     percen_Inval <- (InVal / tot) *100
     #Percentage Left eye inval data
-    InVal_L <- nrow(filter(csvDF, LPMMV == 1))
+    InVal_L <- nrow(filter(csvDF, LPMMV == 0))
     percen_Inval_L <- (InVal_L / tot) *100
     #Percentage Right eye inval data
-    InVal_R <- nrow(filter(csvDF, RPMMV > 0))
+    InVal_R <- nrow(filter(csvDF, RPMMV == 0))
     percen_Inval_R <- (InVal_R / tot) *100
     # percentage pupil size over 10mm
     over_10 <- nrow(filter(csvDF, LPMM > 10, RPMM > 10))
@@ -165,7 +165,7 @@ collatedDF <- do.call(rbind.data.frame, lapply(RawFiles, ImportFnc))
 save(collatedDF,file=sprintf("%sdf.Rda", TestTLA[folder]))
 view(collatedDF)
 
-write.csv(collatedDF, "collatedDF.csv")
+write.csv(collatedDF, "collatedDF_Further.csv")
 
 
 require("kableExtra")
